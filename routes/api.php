@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Http\Request;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+// Route::apiResources([
+// 'user' => 'API\UserController',
+// 'dashboard' => 'API\DashboardController',
+// 'category' => 'API\CategoryController',
+// 'item' => 'API\ItemController',
+// ]);
+
+Route::apiResource('/user','API\UserController');
+Route::apiResource('/dashboard','API\DashboardController');
+Route::apiResource('/category','API\CategoryController');
+Route::apiResource('/item','API\ItemController');
+Route::apiResource('/reserve','API\ReserveController');
+
+Route::post('reserve/{id}','API\ReserveController@status')->name('reserve.status');
+Route::get('profile','API\UserController@profile');
+Route::put('profile','API\UserController@updateProfile');
+
+Route::get('/checkout','API\DashboardController@checkout')->name('checkout');
+Route::get('/getitem','API\DashboardController@getitem')->name('getitem');
+
+ 
